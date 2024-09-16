@@ -13,9 +13,9 @@
 ## Creating A Component
 ### Through the Terminal:
 - To create a new component, run:
-- > `ng generate component <componentname>` 
+> `ng generate component <componentname>` 
 - Or the short hand way
-- > `ng g c <componentname>`
+> `ng g c <componentname>`
   > 
 ## Component Decorator
 - A component is a normal class, but to convert it into a component, we add the **@Component** decorator, which takes an object with the following properties:
