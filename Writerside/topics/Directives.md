@@ -195,7 +195,7 @@ The `*ngSwitch` directive allows you to conditionally display one of multiple el
 > `*ngSwitchDefault`
 {style="note"}
 
-### Example 
+### Example {id="example_4"}
 - Component;
 ```Typescript
      color: string = 'red';
@@ -210,5 +210,65 @@ The `*ngSwitch` directive allows you to conditionally display one of multiple el
 ```
 
 
+## Blocks
 
 
+### @For Block
+- Works like *ngFor Directive but different syntax. It repeatedly renders content of a block for each item in a collection.
+
+#### Example {id="example_5"}
+- Template;
+```HTML
+@for (todo of todos; track todo.name){
+    <div>{{todo.name}}</div>
+} @empty{
+    <div>There are no todos</div>
+}
+```
+
+### @If Block
+- Works like *ngIf Directive but different syntax. It conditionally displays its content when its condition expression is truthy.
+
+#### Example {id="example_6"}
+- Template;
+```HTML
+@if (todos){
+    <div>{{todo[0]name}}</div>
+} @else{
+    <div>The todos array is empty</div>
+}
+```
+
+### @Let Block
+- Works like javascript's let keyword used to declare variables . It allows you to define a local variable and re-use it across the template.
+
+#### Example {id="example_7"}
+- Template;
+```HTML
+@if (todos){
+    <div>@let first_todo = todos[0].name</div>
+    <div>{{first_todo}}</div>
+} @else{
+    <div>The todos array is empty</div>
+}
+```
+
+### @Switch Block
+- Works like javascript's switch keyword. It displays content selected by one of the cases matching against the conditional expression.
+
+#### Example
+- Template;
+```HTML
+@switch (userPermissions) {
+    @case ('admin') {
+        <app-admin-dashboard></app-admin-dashboard>
+    }
+    @case ('editor') {
+        <app-editor-dashboard></app-editor-dashboard>
+    }
+    @default {
+        <app-user-dashboard></app-user-dashboard>
+    }
+}
+
+```

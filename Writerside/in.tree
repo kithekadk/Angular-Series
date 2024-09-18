@@ -9,4 +9,5 @@
     <toc-element topic="Introduction.md"/>
     <toc-element topic="Component_And_DataBinding.md"/>
     <toc-element topic="Directives.md"/>
+    <toc-element topic="Component_Communication.md"/>
 </instance-profile>
