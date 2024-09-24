@@ -8,7 +8,7 @@ Angular's Router module enables the creation of rich, navigable applications. It
 
 ## Setting Up Angular Routing
 
-To use Angular's Router, you need to set up routing in your Angular application:
+To use the Router, you need to set up routing in your Angular application:
 
 ### Import RouterModule
 First, import `RouterModule` and `Routes` in your app module:
