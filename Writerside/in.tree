@@ -10,4 +10,9 @@
     <toc-element topic="Component_And_DataBinding.md"/>
     <toc-element topic="Directives.md"/>
     <toc-element topic="Component_Communication.md"/>
+    <toc-element topic="Pipes.md"/>
+    <toc-element topic="Component-Lifecycle.md"/>
+    <toc-element topic="Services-and-introduction-to-Dependency-Injection.md"/>
+    <toc-element topic="Forms.md"/>
+    <toc-element topic="Routing.md"/>
 </instance-profile>
