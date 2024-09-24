@@ -15,4 +15,5 @@
     <toc-element topic="Services-and-introduction-to-Dependency-Injection.md"/>
     <toc-element topic="Forms.md"/>
     <toc-element topic="Routing.md"/>
+    <toc-element topic="Modules.md"/>
 </instance-profile>
