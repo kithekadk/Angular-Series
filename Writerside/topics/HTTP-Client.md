@@ -95,7 +95,7 @@ this.http.put('https://api.example.com/items/1', updatedItem)
 > **Tip:** Use PUT when you want to completely replace the resource, and PATCH when you want to update a part of it.
 
 
-### Making DELETE Requests
+## Making DELETE Requests
 
 A DELETE request is used to remove a resource from the server.
 
@@ -109,7 +109,7 @@ this.http.delete('https://api.example.com/items/1')
 > Be cautious when using DELETE requests. Make sure you are deleting the correct resource, as DELETE operations are usually irreversible.
 {style="warning"}
 
-### Handling HTTP Parameters
+## Handling HTTP Parameters
 
 You can send query parameters in your requests by using `HttpParams`.
 
@@ -129,7 +129,7 @@ this.http.get('https://api.example.com/items', { params })
 > HttpParams is immutable, meaning each call to .set() returns a new instance. Make sure to chain the calls as shown above.
 {style="note"}
 
-### Headers in HTTP Requests
+## Headers in HTTP Requests
 
 You can send custom headers along with your requests using the `HttpHeaders` class.
 
@@ -150,7 +150,7 @@ this.http.get('https://api.example.com/protected-items', { headers })
 > **Tip:** Use headers for things like authentication tokens or metadata that need to be passed along with your HTTP request.
 
 
-### Error Handling in HttpClient
+## Error Handling in HttpClient
 
 Handling errors in HTTP requests is crucial to avoid unexpected behavior in your application. You can use RxJS's `catchError` operator to manage errors.
 
@@ -175,11 +175,11 @@ this.http.get('https://api.example.com/nonexistent-endpoint')
 > **Important:** Always handle errors to provide feedback to the user and log errors appropriately for debugging and analytics purposes.
 
 
-### HTTP Interceptors
+## HTTP Interceptors
 
 HTTP interceptors allow you to intercept and modify HTTP requests before they are sent or responses before they are processed by your application. Common use cases include adding authentication tokens or logging requests.
 
-#### Creating an Interceptor
+### Creating an Interceptor
 
 ```typescript
 import { Injectable } from '@angular/core';
@@ -200,7 +200,7 @@ export class AuthInterceptor implements HttpInterceptor {
 }
 ```
 
-## Registering the Interceptor
+### Registering the Interceptor
 To use the interceptor, you need to provide it in the providers array of your Angular module.
 
 ```typescript
@@ -218,7 +218,7 @@ export class AppModule { }
 {style="note"}
 
 
-### Observables and HttpClient
+## Observables and HttpClient
 
 Angular's `HttpClient` returns Observables for all HTTP requests. Observables are a powerful way to handle asynchronous data streams, and you can use RxJS operators like `map()`, `catchError()`, `tap()`, and others to manipulate the data returned from an HTTP request.
 
