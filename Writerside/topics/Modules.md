@@ -3,6 +3,10 @@
 
 Angular modules (NgModules) are fundamental building blocks of Angular applications. This guide delves deep into the nature of Angular modules, explaining each concept in detail to ensure a thorough understanding.
 
+
+> **Reminder**: Modules are not used in Angular 18
+{style="note"}
+
 ## What is an Angular Module?
 
 Angular modules, distinguished by the `@NgModule` decorator, organize code into blocks of functionality that are cohesive, reusable, and manageable. They encapsulate components, directives, pipes, and services into functional sets which can be imported by other modules.
