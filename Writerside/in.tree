@@ -17,4 +17,5 @@
     <toc-element topic="Routing.md"/>
     <toc-element topic="Modules.md"/>
     <toc-element topic="Animations.md"/>
+    <toc-element topic="Dynamic-Components.md"/>
 </instance-profile>

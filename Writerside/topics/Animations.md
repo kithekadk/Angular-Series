@@ -26,8 +26,8 @@ imports: [BrowserAnimationsModule],
 export class AppModule { }
 ```
 
-{style="note"}
 > **Note**: Importing `BrowserAnimationsModule` in the AppModule allows Angular to activate animation capabilities across your entire application.
+{style="note"}
 
 ### Step 2: Understanding Animation Functions
 
@@ -105,12 +105,11 @@ transition('void => *', [
 ])
 ```
 
-{style="tip"}
 > **Tip**: `keyframes()` provide precise control over the intermediate steps of your animations, allowing for complex, choreographed sequences that are more dynamic and engaging.
-
-### Conclusion
+{style="tip"}
 
 Mastering Angular animations can significantly enhance the interactivity and visual appeal of your applications. By understanding and utilizing the comprehensive tools provided by Angular's animation API, developers can create sophisticated, smooth, and visually appealing animations that improve the user experience.
 
-{style="warning"}
+
 > **Important**: Always consider the performance implications of animations on different devices. Overuse can lead to sluggishness, especially on less capable devices or browsers.
+{style="warning"}
