@@ -19,4 +19,5 @@
     <toc-element topic="Animations.md"/>
     <toc-element topic="Dynamic-Components.md"/>
     <toc-element topic="Observables.md"/>
+    <toc-element topic="HTTP-Client.md"/>
 </instance-profile>
