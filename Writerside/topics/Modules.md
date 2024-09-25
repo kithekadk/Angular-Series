@@ -58,8 +58,8 @@ Registers service providers at the application level or module level, depending 
 providers: [UserService, {provide: 'API_KEY', useValue: 'XYZ'}]
 ```
 
-{style="note"}
 > **Note**: Preferably use the `providedIn` property of the `@Injectable()` decorator to make services available application-wide or scoped to a module.
+{style="note"}
 
 #### Exports
 
