@@ -91,7 +91,34 @@ export const productReducer = createReducer(
 > Reducers should be pure functions, meaning they return a new state object without mutating the old state.
 { style="note" }
 
-## 4. Create Selectors ##
+## 4. Define the shape of the application ##
+
+1. Create the **`app.state.ts`** file where you'll define the shape of the entire application's state.
+
+2. In the `app.state.ts` file, define an interface that represents the overall shape of your application's state.
+
+This interface should contain slices of state (also called `reducers`) that manage different parts of your application. For example, the `ProductState` for product and cart management.
+
+### `app.state.ts` Example: ###
+
+```typescript
+// src/app/store/app.state.ts
+import { ProductState } from './reducers/product.reducer';
+
+/**
+* Defines the overall shape of the application state.
+* The `AppState` interface includes all the slices of state (like `products`) needed in the app.
+  */
+  export interface AppState {
+  products: ProductState; // Add the `products` slice of state to the AppState
+  }
+```
+
+#### Explanation ####
+-  **AppState:** This is the root state interface for the application. It will include slices of the state, such as the products slice.
+-  **ProductState:** Represents the shape of the state related to products and cart. This is imported from the reducer responsible for handling products.
+
+## 5. Create Selectors ##
 Selectors are used to query specific parts of the state. This helps components fetch data from the store.
 
 **Example:**
@@ -112,7 +139,7 @@ export const selectCart = (state: AppState) => state.cart;
 > **Tip:**
 Selectors are reusable and help decouple the state structure from the component logic. Always use selectors instead of directly accessing the state.
 
-## 5. Create Effects ##
+## 6. Create Effects ##
 Effects are used to handle side effects like HTTP requests or interacting with services. Effects listen for actions and can dispatch other actions based on asynchronous operations like fetching data from an API.
 
 **Example:**
@@ -146,7 +173,7 @@ export class ProductEffects {
 > `ofType` filters the actions, and `mergeMap` handles asynchronous tasks. The `effect` listens for the `loadProducts action`, fetches the products from the service, and dispatches the `loadProductsSuccess` action with the data.
 { style="note" }
 
-## 6. Services ##
+## 7. Services ##
 Services are used to make API calls. They interact with external data sources and are injected into effects.
 
 **Example:**
@@ -156,41 +183,52 @@ A simple service that fetches products from an API.
 // src/app/services/product.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-  private apiUrl = 'https://api.example.com/products';
+  private apiUrl = 'https://dummyjson.com/products'; // DummyJSON API endpoint
 
   constructor(private http: HttpClient) {}
 
-  // Fetch products from the API
-  getProducts() {
-    return this.http.get<any[]>(this.apiUrl);
+  /**
+   * Fetch products from the DummyJSON API.
+   * @returns {Observable<any[]>} - Observable containing the list of products.
+   */
+  getProducts(): Observable<any[]> {
+    return this.http.get<any>(this.apiUrl).pipe(
+      map(response => response.products) // Extract the products array from the response
+    );
   }
 }
 ```
 
-## 7. Add NgRx Store and Effects to the App ##
-In your `app.module.ts` or `main.ts` (for standalone components), import StoreModule and EffectsModule.
+## 8. Add NgRx Store and Effects to the App ##
+In your `app.config.ts` or `main.ts` (for standalone components), import StoreModule and EffectsModule.
 
 ```typescript
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { productReducer } from './store/reducers/product.reducer';
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { provideStore } from '@ngrx/store';
+import { provideEffects } from '@ngrx/effects';
 import { ProductEffects } from './store/effects/product.effects';
+import { productReducer } from './store/reducers/product.reducer';
 
-@NgModule({
-  imports: [
-    StoreModule.forRoot({ products: productReducer }), // Register the product reducer
-    EffectsModule.forRoot([ProductEffects]) // Register the product effects
-  ]
-})
-export class AppModule {}
+import { routes } from './app.routes';
+import { provideHttpClient, withFetch } from '@angular/common/http';
+
+
+export const appConfig: ApplicationConfig = {
+  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes),     provideStore({ products: productReducer }), // Register the product reducer
+    provideEffects([ProductEffects]), // Register the effects
+    provideHttpClient(withFetch())
+    ]};
 ```
 
-## 8. Component Interaction with the Store ##
+## 9. Component Interaction with the Store ##
 In your Angular components, you can dispatch actions to modify the state and use selectors to read data from the store.
 
 #### **Example: Product List Component** ####
@@ -200,11 +238,16 @@ This component will dispatch the `loadProducts` action and select products from 
 // src/app/components/product-list.component.ts
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { loadProducts } from '../store/actions/product.actions';
-import { selectProducts } from '../store/selectors/product.selectors';
+import { Observable } from 'rxjs';
+import { AppState } from '../../store/app.state';
+import { loadProducts, addToCart } from '../../store/actions/product.actions';
+import { selectProducts } from '../../store/selectors/product.selectors';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-product-list',
+  standalone: true,
+  imports: [CommonModule],
   template: `
     <div *ngFor="let product of products$ | async">
       {{ product.name }} - ${{ product.price }}
@@ -213,35 +256,44 @@ import { selectProducts } from '../store/selectors/product.selectors';
   `
 })
 export class ProductListComponent implements OnInit {
-  products$ = this.store.select(selectProducts);
+  products$: Observable<any[]> = this.store.select(selectProducts); // Select products from the store
 
-  constructor(private store: Store) {}
+  constructor(private store: Store<AppState>) {} // Inject the store
 
   ngOnInit() {
-    // Dispatch action to load products when component initializes
-    this.store.dispatch(loadProducts());
+    this.store.dispatch(loadProducts()); // Dispatch loadProducts action on component initialization
   }
 
+  // Dispatch addToCart action when a product is added to the cart
   addToCart(product: any) {
     this.store.dispatch(addToCart({ product }));
   }
 }
 ```
-## 9. Using the StoreDevtools ##
+## 10. Using the StoreDevtools ##
 **NgRx DevTools** allows you to inspect and debug the state of your application. You can time travel through the state and replay actions.
 
 Add `StoreDevtoolsModule` to your `app.module.ts`:
 
 ```typescript
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment';
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { provideStore } from '@ngrx/store';
+import { provideEffects } from '@ngrx/effects';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { ProductEffects } from './store/effects/product.effects';
+import { productReducer } from './store/reducers/product.reducer';
 
-@NgModule({
-  imports: [
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
-  ]
-})
-export class AppModule {}
+import { routes } from './app.routes';
+import { provideHttpClient, withFetch } from '@angular/common/http';
+
+
+export const appConfig: ApplicationConfig = {
+  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes),     provideStore({ products: productReducer }), // Register the product reducer
+    provideEffects([ProductEffects]), // Register the effects
+    provideStoreDevtools({ maxAge: 25, logOnly: false }),
+    provideHttpClient(withFetch())
+    ]};
 ```
 
 
