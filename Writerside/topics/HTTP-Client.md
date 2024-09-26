@@ -2,27 +2,29 @@
 
 The `HttpClient` is a powerful service provided by Angular to perform HTTP requests. It allows you to communicate with a remote server over the HTTP protocol and is built on top of the browser's native `XMLHttpRequest` object or the `Fetch` API.
 
-### Importing `HttpClientModule`
+### Importing `provideHttpClient` and `withFetch` configuration
 
-To use `HttpClient` in Angular, you first need to import the `HttpClientModule` in your application's root module.
+To use `HttpClient` in Angular, you first need to import the `HttpClient` provider in your application's root module.
 
 ```typescript
-import { HttpClientModule } from '@angular/common/http';
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { provideHttpClient, withFetch } from '@angular/common/http';
+import { LoggingInterceptorService } from './services/logging-interceptor.service';
 
-@NgModule({
-  imports: [
-    HttpClientModule,
-    // other modules
-  ],
-})
-export class AppModule { }
+import { routes } from './app.routes';
+
+export const appConfig: ApplicationConfig = {
+  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideHttpClient(withFetch())
+  }]
+};
 ```
 
 > Without importing HttpClientModule, the HttpClient service will not be available for use in your Angular application.
 {style="note"}
 
 ### Basic HttpClient Usage
-Once HttpClientModule is imported, you can inject HttpClient into your services or components to start making HTTP requests.
+Once `HttpClient` provider is imported and configured to use `withFetch()`, you can inject HttpClient into your services or components to start making HTTP requests.
 
 ```typescript
 import { HttpClient } from '@angular/common/http';
@@ -204,14 +206,18 @@ export class AuthInterceptor implements HttpInterceptor {
 To use the interceptor, you need to provide it in the providers array of your Angular module.
 
 ```typescript
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { provideHttpClient, HTTP_INTERCEPTORS, withFetch } from '@angular/common/http';
+import { LoggingInterceptorService } from './services/logging-interceptor.service';
 
-@NgModule({
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
-  ]
-})
-export class AppModule { }
+import { routes } from './app.routes';
+
+export const appConfig: ApplicationConfig = {
+  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideHttpClient(withFetch()), {
+    provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptorService, multi: true
+  }]
+};
 ```
 
 > The `multi: true` option allows multiple interceptors to be registered and run in sequence.
