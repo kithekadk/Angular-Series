@@ -10,24 +10,22 @@ Angular's Router module enables the creation of rich, navigable applications. It
 
 To use the Router, you need to set up routing in your Angular application:
 
-### Import RouterModule
-First, import `RouterModule` and `Routes` in your app module:
+### Import Routes
+First, import `Routes` in your `app.config.ts` file:
 
 ```typescript
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
+import { HomeComponent } from './components/home/home.component';
+import { AboutComponent } from './components/about/about.component';
 
-// Define your routes here
-const routes: Routes = [
-{ path: 'home', component: HomeComponent },
-{ path: 'about', component: AboutComponent }
+/**
+ * The application's route definitions. Each route maps a path to a component.
+ */
+export const routes: Routes = [
+  { path: 'home', component: HomeComponent },
+  { path: 'about', component: AboutComponent },
 ];
 
-@NgModule({
-imports: [RouterModule.forRoot(routes)],
-exports: [RouterModule]
-})
-export class AppRoutingModule {}
 ```
 
 ### App Component Template
@@ -82,36 +80,82 @@ import { Router } from '@angular/router';
 
 @Component({...})
 export class AppComponent {
-constructor(private router: Router) {}
+    constructor(private router: Router) {}
 
-goToPage(pageName: string): void {
-this.router.navigate([pageName]);
-}
+    goToPage(pageName: string): void {
+        this.router.navigate([pageName]);
+    }
 }
 ```
+> You can also use `navigateByUrl()` method ie `this.router.navigateByUrl(pageName)`
+{style="note"}
+
+## Difference Between `navigate()` and `navigateByUrl()` in Handling Nested URLs
+
+In Angular, both `navigate()` and `navigateByUrl()` are used for programmatic navigation. However, they differ in how they handle **nested URLs**.
+
+## `navigate()`
+
+- **Flexible**: Accepts an array of path segments, which can be used to navigate to both **relative** and **absolute** paths.
+- **Best for nested routes**: When navigating between nested routes or building dynamic URLs, `navigate()` is more flexible as it allows you to build the path incrementally.
+
+### Example
+
+```typescript
+this.router.navigate(['products', 'electronics', 'laptops']);  // Navigates to /products/electronics/laptops
+```
+
+- **Relative Navigation:** It can also be used for relative navigation (based on the current route).
+
+#### Example for Relative Navigation
+
+```typescript
+this.router.navigate(['laptops'], { relativeTo: this.route });  // Relative to the current route
+```
+
+## navigateByUrl()
+
+- **Absolute path only:** Takes a string representing the full URL. This is useful when you know the exact URL and want to navigate directly.
+- **Less flexible for nested routes:** You must pass the entire URL, which means it's not suitable for relative or dynamically built paths.
+
+### Code snippet
+
+``` typescript
+this.router.navigateByUrl('/products/electronics/laptops');  // Navigates to /products/electronics/laptops
+```
+
+## Key Differences
+
+- **`navigate()`:** Suitable for nested routes and dynamic path construction, can handle relative and absolute URLs.
+- **`navigateByUrl()`:** Only accepts an absolute URL, better when you have a pre-defined, full URL to navigate to.
+
+> If you're working with nested routes or need relative path navigation, navigate() is the better choice.
+{style="note"}
 
 ## Route Parameters
 
 Passing and accessing route parameters can be done as follows:
 
 ### Configuring Route Parameters
+
 ```typescript
 const routes: Routes = [
-{ path: 'profile/:id', component: ProfileComponent }
+    { path: 'profile/:id', component: ProfileComponent }
 ];
 ```
 
 ### Accessing Route Parameters
+
 ```typescript
 import { ActivatedRoute } from '@angular/router';
 
 @Component({...})
 export class ProfileComponent {
-constructor(private route: ActivatedRoute) {
-this.route.params.subscribe(params => {
-console.log(params['id']);  // Log the value of id
-});
-}
+    constructor(private route: ActivatedRoute) {
+        this.route.params.subscribe(params => {
+        console.log(params['id']);  // Log the value of id
+        });
+    }
 }
 ```
 
@@ -127,12 +171,12 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angul
 providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-canActivate(
-route: ActivatedRouteSnapshot,
-state: RouterStateSnapshot): boolean {
-// Your authentication logic here
-return true;
-}
+    canActivate(
+        route: ActivatedRouteSnapshot,
+        state: RouterStateSnapshot): boolean {
+        // Your authentication logic here
+        return true;
+    }
 }
 ```
 
@@ -141,9 +185,9 @@ Configure your routes to load modules lazily to improve performance:
 
 ```typescript
 const routes: Routes = [
-{
-path: 'features',
-loadChildren: () => import('./features/features.module').then(m => m.FeaturesModule)
-}
+    {
+    path: 'features',
+        loadChildren: () => import('./features/features.module').then(m => m.FeaturesModule)
+    }
 ];
 ```
