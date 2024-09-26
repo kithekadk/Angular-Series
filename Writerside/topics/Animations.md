@@ -12,21 +12,19 @@ Angular leverages advanced web technologies to provide an intuitive and powerful
 
 Before creating animations, you must configure your Angular environment to include animations support.
 
-#### Importing Required Modules
+#### Importing Required providers
 
-Angular animations are built on the Web Animations API, which requires the `BrowserAnimationsModule`. Include it in your application to start using animations.
+Angular animations are built on the Web Animations API, which requires the `provideAnimationsAsync`. Include it in your application to start using animations.
 
 ```typescript
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
-@NgModule({
-imports: [BrowserAnimationsModule],
-...
-})
-export class AppModule { }
+export const appConfig: ApplicationConfig = {
+  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideAnimationsAsync()]
+};
 ```
 
-> **Note**: Importing `BrowserAnimationsModule` in the AppModule allows Angular to activate animation capabilities across your entire application.
+> **Note**: Importing `provideAnimationsAsync` in `app.config.ts` allows Angular to activate animation capabilities across your entire application.
 {style="note"}
 
 ### Step 2: Understanding Animation Functions
