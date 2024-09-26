@@ -20,4 +20,5 @@
     <toc-element topic="Dynamic-Components.md"/>
     <toc-element topic="Observables.md"/>
     <toc-element topic="HTTP-Client.md"/>
+    <toc-element topic="NgRx.md"/>
 </instance-profile>
