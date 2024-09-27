@@ -58,18 +58,19 @@ Reactive Forms provide a model-driven approach to handling form inputs whose val
 - **Immutability**: Embrace the immutable data pattern for robust data handling.
 
 #### Setting Up Reactive Forms
-First, ensure you have `ReactiveFormsModule` imported in your module:
+First, ensure you have `ReactiveFormsModule` imported directly into the **standalone component** that needs form functionality
 
 ```typescript
-// Import ReactiveFormsModule in your app.module.ts
+// Import FormsModule directly in the standalone component
+import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
-@NgModule({
-imports: [ReactiveFormsModule],
-declarations: [AppComponent],
-bootstrap: [AppComponent]
+@Component({
+  selector: 'app-contact-form',
+  standalone: true,
+  imports: [ReactiveFormsModule],  // Import ReactiveFormsModule here
 })
-export class AppModule { }
+export class ContactFormComponent {}
 ```
 
 ##### Building a Reactive Form
@@ -77,29 +78,37 @@ Here’s how you construct a form with various controls:
 
 ```typescript
 import { Component } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
-selector: 'app-root',
-templateUrl: './app.component.html'
+  selector: 'app-profile-form',
+  standalone: true,
+  imports: [ReactiveFormsModule],  // Import ReactiveFormsModule here
 })
-export class AppComponent {
-    profileForm = new FormGroup({
-       firstName: new FormControl(''),
-       lastName: new FormControl('')
-    });
+export class ProfileFormComponent {
+  profileForm = new FormGroup({
+    firstName: new FormControl(''),
+    lastName: new FormControl('')
+  });
 
-    onSubmit() {
-        console.log(this.profileForm.value);
-    }
+  onSubmit() {
+    console.log(this.profileForm.value);
+  }
 }
 ```
 #### HTML for Reactive Forms
 ```html
+<h2>Profile Form</h2>
 <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-  <input type="text" formControlName="firstName">
-  <input type="text" formControlName="lastName">
-  <button type="submit">Submit</button>
+    <label>
+        First Name:
+        <input type="text" formControlName="firstName">
+    </label>
+    <label>
+        Last Name:
+        <input type="text" formControlName="lastName">
+    </label>
+    <button type="submit">Submit</button>
 </form>
 ```
 
@@ -107,6 +116,7 @@ export class AppComponent {
 - **`[formGroup]`**: Binds the form group instance created in the component class to the form element.
 - **`formControlName`**: Connects an input to a form control within the named form group.
 - **`(ngSubmit)`**: Captures the form submission event and calls the `onSubmit()` method defined in the component class.
+- **ReactiveFormsModule Import:** The ReactiveFormsModule is imported directly into the imports array of the component.
 
 ## Custom Validators in Reactive Forms
 You can write custom validators to implement complex validation rules. For example, a validator that checks if a username is not taken:
