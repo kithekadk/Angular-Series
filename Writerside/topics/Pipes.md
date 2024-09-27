@@ -60,9 +60,9 @@ For custom transformations, Angular allows you to create your own pipes. Here’
 
    @Pipe({name: 'exponentialStrength'})
    export class ExponentialStrengthPipe implements PipeTransform {
-   transform(value: number, exponent?: number): number {
-   return Math.pow(value, isNaN(exponent) ? 1 : exponent);
-   }
+       transform(value: number, exponent?: number): number {
+           return Math.pow(value, isNaN(exponent) ? 1 : exponent);
+       }
    }
    ```
 
