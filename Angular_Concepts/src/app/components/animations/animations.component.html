@@ -1,0 +1,14 @@
+<h2>Angular Animations Demo</h2>
+
+      <!-- Button to toggle open/close animation -->
+      <button (click)="toggle()">Toggle Open/Close</button>
+
+      <!-- Animated div for open/close trigger -->
+      <div [@openClose]="isOpen ? 'open' : 'closed'">
+        This container will expand or collapse.
+      </div>
+
+      <!-- Another animated div using keyframes to slide in -->
+      <div @slideInOut>
+        This container slides in from the left!
+      </div>

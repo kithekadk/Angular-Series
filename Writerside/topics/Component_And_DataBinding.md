@@ -126,6 +126,3 @@ export class FirstComponent {
     <input [(ngModel)]="name">
     <p>Hello, {{name}}!</p>
 ```
-
-
-

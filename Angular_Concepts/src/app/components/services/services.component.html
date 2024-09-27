@@ -1,0 +1,11 @@
+<div class="services-container">
+    <h2>Angular Services and Dependency Injection</h2>
+
+    <!-- Using LoggerService in Component -->
+    <h3>LoggerService in Component</h3>
+    <button (click)="logMessage()">Log a Message</button>
+
+    <!-- Using HeroService, which depends on LoggerService -->
+    <h3>HeroService (with injected LoggerService)</h3>
+    <button (click)="fetchHeroes()">Fetch Heroes</button>
+  </div>

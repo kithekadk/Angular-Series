@@ -1,0 +1,6 @@
+<h2>Your Cart</h2>
+    <div *ngFor="let product of cart$ | async">
+      <h3>{{ product.title }}</h3>
+      <p>Price: \${{ product.price }}</p>
+    </div>
+    <button routerLink="/concepts/ngrx/products">Back to Products</button>`,

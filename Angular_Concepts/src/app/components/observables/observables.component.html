@@ -1,0 +1,36 @@
+<div class="container">
+    <h1>Observables in Action</h1>
+  
+    <!-- Basic Observable Example -->
+    <section>
+      <h2>Basic Observable Example</h2>
+      <ul>
+        <li *ngFor="let log of observableLog">{{ log }}</li>
+      </ul>
+    </section>
+  
+    <!-- Observables with Operators -->
+    <section>
+      <h2>Observables with Operators</h2>
+      <ul>
+        <li *ngFor="let log of subscriptionLog">{{ log }}</li>
+      </ul>
+    </section>
+  
+    <!-- CombineLatest Example -->
+    <section>
+      <h2>Combined Timers (combineLatest)</h2>
+      <ul>
+        <li *ngFor="let log of combinedTimerLog">{{ log }}</li>
+      </ul>
+    </section>
+  
+    <!-- Error Handling -->
+    <section>
+      <h2>Error Handling in Observables</h2>
+      <ul>
+        <li *ngFor="let log of errorLog">{{ log }}</li>
+      </ul>
+    </section>
+  </div>
+  

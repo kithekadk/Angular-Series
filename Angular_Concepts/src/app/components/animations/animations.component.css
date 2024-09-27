@@ -1,0 +1,28 @@
+    /* Style for the demo container */
+    h2 {
+        text-align: center;
+        color: #4CAF50;
+      }
+
+      button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        margin-bottom: 20px;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      div {
+        margin: 20px auto;
+        padding: 20px;
+        border: 2px solid #ddd;
+        text-align: center;
+        width: 300px;
+        border-radius: 10px;
+      }

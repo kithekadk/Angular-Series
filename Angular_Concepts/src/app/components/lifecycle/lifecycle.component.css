@@ -1,0 +1,16 @@
+.product-container {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: white;
+    color: green;
+  }
+  
+  .product-images {
+    margin-top: 20px;
+  }
+  
+  .customer-reviews {
+    margin-top: 20px;
+  }
+  

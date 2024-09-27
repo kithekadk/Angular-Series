@@ -1,0 +1,14 @@
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: green;
+  }
+  a {
+    color: white;
+    text-decoration: none;
+    margin-right: 15px;
+  }
+  a:hover {
+    text-decoration: underline;
+  }

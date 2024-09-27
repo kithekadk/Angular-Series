@@ -1,0 +1,28 @@
+<div class="product-container">
+    <h2>Product Details</h2>
+    <p>Product Name: {{ product?.name }}</p>
+    <p>Price: ${{ product?.price }}</p>
+    <p>Stock Available: {{ product?.stock }}</p>
+  
+    <div>
+      <label>Select Color: </label>
+      <select [(ngModel)]="selectedColor">
+        <option value="red">Red</option>
+        <option value="blue">Blue</option>
+        <option value="green">Green</option>
+      </select>
+    </div>
+  
+    <div class="product-images">
+      <!-- Placeholder for product images and slideshow -->
+      <img *ngIf="product?.thumbnail" [src]="product.thumbnail" alt="Product Image" width="150">
+    </div>
+  
+    <div class="customer-reviews">
+      <!-- Placeholder for customer reviews -->
+      <p>Customer reviews will load here.</p>
+    </div>
+  
+    <button (click)="updateProductDisplay(selectedColor)">Update Product Display</button>
+  </div>
+  

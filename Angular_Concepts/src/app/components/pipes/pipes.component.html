@@ -1,0 +1,23 @@
+<div class="pipes-container">
+    <h2>Angular Pipes Demonstration</h2>
+    
+    <!-- Example 1: Using Built-in Pipes -->
+    <h3>Built-in Pipes</h3>
+    <p><strong>DatePipe:</strong> {{ today | date }}</p>
+    <p><strong>UpperCasePipe:</strong> {{ name | uppercase }}</p>
+    <p><strong>LowerCasePipe:</strong> {{ name | lowercase }}</p>
+    <p><strong>CurrencyPipe:</strong> {{ amount | currency:'USD' }}</p>
+    <p><strong>DecimalPipe:</strong> {{ pi | number:'1.2-2' }}</p>
+
+    <!-- Example 2: Custom Pipe -->
+    <h3>Custom Pipe (ExponentialStrengthPipe)</h3>
+    <p>{{ 2 | exponentialStrength:10 }}</p>
+    
+    <!-- Example 3: Chaining Pipes -->
+    <h3>Chaining Pipes</h3>
+    <p>{{ birthday | date | uppercase }}</p>
+
+    <!-- Example 4: Impure Pipe -->
+    <h3>Impure Pipe (Note: Example Only)</h3>
+    <p>This is an example for impure pipe logic, where Angular checks for changes in every change detection cycle.</p>
+  </div>

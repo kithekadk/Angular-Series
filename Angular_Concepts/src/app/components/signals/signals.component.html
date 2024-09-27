@@ -1,0 +1,29 @@
+<div class="signals-container">
+    <h2>Angular Signals Demonstration</h2>
+
+    <!-- Counter Example -->
+    <h3>Counter Example</h3>
+    <p>Counter: {{ counter() }}</p>
+    <button (click)="increment()">Increment</button>
+    <button (click)="decrement()">Decrement</button>
+
+    <!-- Computed Signals Example -->
+    <h3>Cart Example with Computed Signals</h3>
+    <p>Item Price: {{ itemPrice() }}</p>
+    <p>Tax (10%): {{ tax() }}</p>
+    <p>Total: {{ total() }}</p>
+
+    <!-- Signal-Based Form -->
+    <h3>Login Form using Signals</h3>
+    <form (ngSubmit)="submitForm()">
+      <label>
+        Username:
+        <input [ngModel]="username()" (ngModelChange)="username.set($event)" [ngModelOptions]="{standalone: true}"/>
+      </label>
+      <label>
+        Password:
+        <input type="password" [ngModel]="password()" (ngModelChange)="password.set($event)" [ngModelOptions]="{standalone: true}"/>
+      </label>
+      <button type="submit">Login</button>
+    </form>
+  </div>

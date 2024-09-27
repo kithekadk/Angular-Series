@@ -1,0 +1,53 @@
+<div class="http-client-container">
+    <h1>HttpClient Examples</h1>
+  
+    <!-- GET Request -->
+    <button (click)="fetchData()">Fetch Products (GET)</button>
+    <div *ngIf="getData">
+      <h2>GET Request Data:</h2>
+      <pre>{{ getData | json }}</pre>
+    </div>
+  
+    <!-- POST Request -->
+    <button (click)="sendData()">Send Data (POST)</button>
+    <div *ngIf="postData">
+      <h2>POST Request Response:</h2>
+      <pre>{{ postData | json }}</pre>
+    </div>
+  
+    <!-- PUT Request -->
+    <button (click)="updateDataItem()">Update Data (PUT)</button>
+    <div *ngIf="updateData">
+      <h2>PUT Request Response:</h2>
+      <pre>{{ updateData | json }}</pre>
+    </div>
+  
+    <!-- DELETE Request -->
+    <button (click)="deleteDataItem()">Delete Data (DELETE)</button>
+    <div *ngIf="deleteResponse">
+      <h2>DELETE Request Response:</h2>
+      <pre>{{ deleteResponse | json }}</pre>
+    </div>
+  
+    <!-- GET with Query Parameters -->
+    <button (click)="fetchWithParams()">Fetch Data with Query Params</button>
+    <div *ngIf="getData">
+      <h2>GET with Params Response:</h2>
+      <pre>{{ getData | json }}</pre>
+    </div>
+  
+    <!-- GET with Headers -->
+    <button (click)="fetchWithHeaders()">Fetch Data with Custom Headers</button>
+    <div *ngIf="getData">
+      <h2>GET with Headers Response:</h2>
+      <pre>{{ getData | json }}</pre>
+    </div>
+  
+    <!-- Error Handling Example -->
+    <button (click)="fetchWithErrorHandling()">Fetch Data with Error Handling</button>
+    <div *ngIf="errorMessage">
+      <h2>Error Message:</h2>
+      <p>{{ errorMessage }}</p>
+    </div>
+  </div>
+  
