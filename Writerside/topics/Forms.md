@@ -16,14 +16,23 @@ You need to import `FormsModule` in the desired component to get started with Te
 
 ```typescript
 // Import FormsModule in your component
+// app.component.ts
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-@NgModule({
-imports: [FormsModule],
-declarations: [AppComponent],
-bootstrap: [AppComponent]
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+  standalone: true,
+  imports: [FormsModule]
 })
-export class AppModule { }
+export class AppComponent {
+  onSubmit(form: NgForm) {
+    // Form submission logic
+    console.log(form.value);
+  }
+}
 ```
 
 ##### HTML for Template-Driven Form
