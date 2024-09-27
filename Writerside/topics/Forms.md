@@ -12,10 +12,10 @@ Template-Driven Forms are ideal for simple scenarios and are easier to set up bu
 - **Suitable for Simple Scenarios**: Best for quick forms like simple contact forms.
 
 ## Creating a Template-Driven Form
-You need to import `FormsModule` in your module to get started with Template-Driven Forms:
+You need to import `FormsModule` in the desired component to get started with Template-Driven Forms:
 
 ```typescript
-// Import FormsModule in your app.module.ts
+// Import FormsModule in your component
 import { FormsModule } from '@angular/forms';
 
 @NgModule({

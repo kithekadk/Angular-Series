@@ -21,4 +21,5 @@
     <toc-element topic="Observables.md"/>
     <toc-element topic="HTTP-Client.md"/>
     <toc-element topic="NgRx.md"/>
+    <toc-element topic="Angular-Universal.md"/>
 </instance-profile>
